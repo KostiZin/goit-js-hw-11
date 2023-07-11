@@ -3,6 +3,11 @@ import Notiflix from 'notiflix';
 import { PixabayAPI } from './PixabayAPI';
 import { createGalleryCard } from './createGalleryCard';
 
+// I have a Content Security Policy error when I use SimpleLightBox, so, I will not use it now but I will work on it later
+
+// import SimpleLightbox from 'simplelightbox';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const galleryEl = document.querySelector('.js-gallery');
 const searchFormEl = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.js-load-more');
@@ -69,6 +74,8 @@ async function handleSearchForm(evt) {
         "We're sorry, but you've reached the end of search results."
       );
     }
+
+    galleryEl.innerHTML.refresh();
   } catch (error) {
     console.warn();
   }
@@ -99,6 +106,10 @@ async function handleLoadMoreBtn() {
     console.warn();
   }
 }
+
+// new SimpleLightbox('.gallery a', {
+//   captionDelay: 250,
+// });
 
 // ADDITIONAL FUNCTIONS //
 

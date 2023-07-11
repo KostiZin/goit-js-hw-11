@@ -41,7 +41,7 @@
   border-color: #021463;
 }
 
-.gallery {
+.gallery-list {
   display: flex;
   flex-wrap: wrap;
   flex-basis: calc((100% - 120px) / 4);
@@ -77,11 +77,6 @@
   justify-content: space-between;
 }
 
-.info-item {
-  // font-size: 15px;
-  font-style: normal;
-}
-
 .load-more {
   display: flex;
   justify-content: center;
@@ -100,4 +95,17 @@
 
 .load-more:hover {
   background-color: #0f3f8c;
+}
+
+.info-item {
+  display: flex;
+}
+
+.info-description {
+  font-size: 10px;
+  font-style: normal;
+}
+
+.info-number {
+  font-size: 15px;
 }
