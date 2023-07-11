@@ -6,21 +6,44 @@ export class PixabayAPI {
   query = '';
   page = 1;
 
-  fetchPhotos = () =>
-    axios.get(
+  fetchPhotos = async () => {
+    const response = await axios.get(
       `${this.#BASE_URL}?key=${
         this.#API_KEY
       }&q=&image_type=photo&orientation=horizontal&safesearch=true&page=${
         this.page
       }&per_page=40`
     );
-
-  fetchQuery = () =>
-    axios.get(
+    return response;
+  };
+  fetchQuery = async () => {
+    const response = await axios.get(
       `${this.#BASE_URL}?key=${this.#API_KEY}&q=${
         this.query
       }&image_type=photo&orientation=horizontal&safesearch=true&page=${
         this.page
       }&per_page=40`
     );
+    return response;
+  };
+
+  // ==========================================================
+  // fetchPhotos = () =>
+  //   axios.get(
+  //     `${this.#BASE_URL}?key=${
+  //       this.#API_KEY
+  //     }&q=&image_type=photo&orientation=horizontal&safesearch=true&page=${
+  //       this.page
+  //     }&per_page=40`
+  //   );
+
+  // fetchQuery = () =>
+  //   axios.get(
+  //     `${this.#BASE_URL}?key=${this.#API_KEY}&q=${
+  //       this.query
+  //     }&image_type=photo&orientation=horizontal&safesearch=true&page=${
+  //       this.page
+  //     }&per_page=40`
+  //   );
+  // ===========================================================
 }

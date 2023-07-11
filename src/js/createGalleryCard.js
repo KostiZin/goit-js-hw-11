@@ -1,5 +1,3 @@
-import Notiflix from 'notiflix';
-
 export function createGalleryCard({ hits } = images) {
   return hits
     .map(
