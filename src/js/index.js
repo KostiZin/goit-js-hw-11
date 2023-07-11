@@ -7,81 +7,96 @@ const galleryEl = document.querySelector('.js-gallery');
 const searchFormEl = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.js-load-more');
 const inputEl = searchFormEl.firstElementChild;
-console.dir(inputEl);
 
 const api = new PixabayAPI();
-// let query = null;
 
-const options = {
-  // totalItems: 0,
-  itemsPerPage: 40,
-  // visiblePages: 5,
-  page: 1,
-};
+hideLoadMoreBtn();
 
-// let isLabelActive = false;
+// create markup for the first default page //
 
 api
   .fetchPhotos()
   .then(response => {
     const markup = createGalleryCard(response.data);
-    // console.log(response.data);
-
     galleryEl.innerHTML = markup;
   })
-  .catch(console.warn);
+  .catch(console.warn());
+
+// create event SEARCH and its function //
 
 searchFormEl.addEventListener('submit', handleSearchForm);
-loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
 
 function handleSearchForm(evt) {
+  api.page = 1;
   evt.preventDefault();
 
-  const searchValue = inputEl.value.trim();
+  let searchValue = inputEl.value.trim();
   api.query = searchValue;
-  console.log(api.query);
-  console.log(searchValue);
 
   if (!searchValue) {
     return;
   }
 
-  api.fetchQuery().then(response => {
-    api.page = 1;
-    const markup = createGalleryCard(response.data);
+  api
+    .fetchQuery()
+    .then(response => {
+      showLoadMoreBtn();
+      const { data } = response;
+      const markup = createGalleryCard(data);
+      galleryEl.innerHTML = markup;
 
-    // console.log(response.data.total);
-
-    galleryEl.innerHTML = markup;
-
-    if (galleryEl.innerHTML === '') {
-      loadMoreBtn.classList.add('is-hidden');
-      // searchFormEl.reset();
-      return Notiflix.Notify.failure(
-        `Sorry, there are no images matching your search query. Please try again.`
+      if (galleryEl.innerHTML === '') {
+        return Notiflix.Notify.failure(
+          `Sorry, there are no images matching your search query. Please try again.`
+        );
+      }
+      Notiflix.Notify.success(
+        `We found ${
+          data.totalHits
+        } pictures for you under category "${searchValue.toUpperCase()}"`
       );
-    }
-    Notiflix.Notify.success(
-      `We found ${
-        response.data.total
-      } pictures for you under category "${searchValue.toUpperCase()}"`
-    );
-  });
-  // console.dir(searchValue);
-  // console.dir(evt.target.firstElementChild.value);
-  // console.log(query);
+
+      if (40 / data.hits.length > 1) {
+        hideLoadMoreBtn();
+        Notiflix.Notify.warning(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
+    })
+    .catch(console.warn());
+
+  inputEl.value = '';
 }
+
+// creat event Load More and its function //
+
+loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
 
 function handleLoadMoreBtn() {
   api.page += 1;
-  console.log(api.page);
 
-  api.fetchQuery().then(response => {
-    console.log(response.data);
-    galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(response.data));
+  api
+    .fetchQuery()
+    .then(response => {
+      const { data } = response;
+      galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
 
-    if (api.page === response.data.total_pages) {
-      loadMoreBtn.classList.add('is-hidden');
-    }
-  });
+      if (40 / data.hits.length > 1) {
+        hideLoadMoreBtn();
+        Notiflix.Notify.warning(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
+    })
+    .catch(console.warn);
+}
+
+// additional functions //
+
+function hideLoadMoreBtn() {
+  loadMoreBtn.style.display = 'none';
+}
+
+function showLoadMoreBtn() {
+  loadMoreBtn.style.display = 'block';
 }

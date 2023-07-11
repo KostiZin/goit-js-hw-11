@@ -9,11 +9,9 @@
 .search-form {
   text-align: center;
   margin-top: 20px;
-  
 }
 
 .search-form button {
-  
   width: 80px;
   height: 34px;
   cursor: pointer;
@@ -42,8 +40,6 @@
 .search-form input:focus {
   border-color: #021463;
 }
-
-
 
 .gallery {
   display: flex;
@@ -86,14 +82,10 @@
   font-style: normal;
 }
 
-.is-hidden {
-  display: none;
-}
-
 .load-more {
   display: flex;
   justify-content: center;
-    align-items: center;
+  align-items: center;
   margin: 20px auto;
   width: 120px;
   height: 34px;
@@ -102,11 +94,10 @@
   color: #f2f5b8;
   border: 1px solid #021463;
   border-radius: 20px;
-  
+
   transition: background-color 0.15s ease-in;
 }
 
 .load-more:hover {
   background-color: #0f3f8c;
-
 }
