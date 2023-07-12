@@ -10,7 +10,8 @@ export function createGalleryCard({ hits } = images) {
         views,
         comments,
         downloads,
-      }) => `<li class='gallery__item'><div class="photo-card">
+      }) => `<li class='gallery__item'>
+      <div class="photo-card">
       <img src="${webformatURL}" alt="${tags}" loading="lazy" />
       <div class="info">
         <p class="info-item">
@@ -31,6 +32,7 @@ export function createGalleryCard({ hits } = images) {
     .join('');
 }
 
+// ==========================================================================
 // with SimpleLightBox
 
 // export function createGalleryCard({ hits }) {
