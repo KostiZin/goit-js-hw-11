@@ -7,7 +7,7 @@ export class PixabayAPI {
   page = 1;
 
   fetchPhotos = async () => {
-    const response = await axios.get(
+    const response = await axios(
       `${this.#BASE_URL}?key=${
         this.#API_KEY
       }&q=&image_type=photo&orientation=horizontal&safesearch=true&page=${
@@ -17,7 +17,7 @@ export class PixabayAPI {
     return response;
   };
   fetchQuery = async () => {
-    const response = await axios.get(
+    const response = await axios(
       `${this.#BASE_URL}?key=${this.#API_KEY}&q=${
         this.query
       }&image_type=photo&orientation=horizontal&safesearch=true&page=${
