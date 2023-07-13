@@ -118,26 +118,48 @@ async function handleSearchForm(evt) {
 
 // CREATE EVENT "LOAD MORE" AND ITS FUNCTION
 
-loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
+loadMoreBtn.addEventListener('click', async () => {
+  await handleLoadMoreBtn();
+});
 
-function handleLoadMoreBtn() {
+async function handleLoadMoreBtn() {
   api.page += 1;
-  api
-    .fetchQuery()
-    .then(data => {
-      galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
 
-      if (40 / data.hits.length > 1) {
-        hideLoadMoreBtn();
-        Notiflix.Notify.warning(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
-    })
-    .catch(error => {
-      console.warn(error);
-    });
+  try {
+    const data = await api.fetchQuery();
+    galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
+
+    if (40 / data.hits.length > 1) {
+      hideLoadMoreBtn();
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
+  } catch (error) {
+    console.warn(error);
+  }
 }
+
+// loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
+
+// function handleLoadMoreBtn() {
+//   api.page += 1;
+//   api
+//     .fetchQuery()
+//     .then(data => {
+//       galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
+
+//       if (40 / data.hits.length > 1) {
+//         hideLoadMoreBtn();
+//         Notiflix.Notify.warning(
+//           "We're sorry, but you've reached the end of search results."
+//         );
+//       }
+//     })
+//     .catch(error => {
+//       console.warn(error);
+//     });
+// }
 
 // ADDITIONAL FUNCTIONS //
 
