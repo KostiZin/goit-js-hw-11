@@ -1,6 +1,5 @@
 import Notiflix from 'notiflix';
-// import { PixabayAPI } from './axiosPixabayAPI';
-// import { PixabayAPI } from './PixabayAPI';
+import { PixabayAPI } from './axiosPixabayAPI';
 import { createGalleryCard } from './createGalleryCard';
 
 const galleryEl = document.querySelector('.js-gallery');
@@ -69,8 +68,6 @@ async function handleSearchForm(evt) {
         "We're sorry, but you've reached the end of search results."
       );
     }
-
-    galleryEl.innerHTML.refresh();
   } catch (error) {
     console.warn(error);
   }
