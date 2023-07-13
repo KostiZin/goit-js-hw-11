@@ -182,25 +182,25 @@ function showLoadMoreBtn() {
 // =================================================================
 // CREATE EVENT "LOAD MORE" AND ITS FUNCTION //
 // =================================================================
-loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
+// loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
 
-function handleLoadMoreBtn() {
-  api.page += 1;
+// function handleLoadMoreBtn() {
+//   api.page += 1;
 
-  api
-    .fetchQuery()
-    .then(response => {
-      const { data } = response;
-      galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
+//   api
+//     .fetchQuery()
+//     .then(response => {
+//       const { data } = response;
+//       galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
 
-      if (40 / data.hits.length > 1) {
-        hideLoadMoreBtn();
-        Notiflix.Notify.warning(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
-    })
-    .catch(console.warn);
-}
+//       if (40 / data.hits.length > 1) {
+//         hideLoadMoreBtn();
+//         Notiflix.Notify.warning(
+//           "We're sorry, but you've reached the end of search results."
+//         );
+//       }
+//     })
+//     .catch(console.warn);
+// }
 
 // =====================================================================
