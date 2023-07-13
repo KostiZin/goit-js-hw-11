@@ -1,6 +1,6 @@
-import axios from 'axios';
 import Notiflix from 'notiflix';
-import { PixabayAPI } from './axiosPixabayAPI';
+// import { PixabayAPI } from './axiosPixabayAPI';
+// import { PixabayAPI } from './PixabayAPI';
 import { createGalleryCard } from './createGalleryCard';
 
 const galleryEl = document.querySelector('.js-gallery');
@@ -11,7 +11,6 @@ const inputEl = searchFormEl.firstElementChild;
 const api = new PixabayAPI();
 
 hideLoadMoreBtn();
-api.fetchPhotos();
 
 // CREATE MARKUP FOR THE FIRST DEFAULT PAGE //
 
