@@ -19,17 +19,17 @@ hideLoadMoreBtn();
 
 // CREATE MARKUP FOR THE FIRST DEFAULT PAGE //
 
-defaultPage();
+// defaultPage();
 
-async function defaultPage() {
-  try {
-    const response = await api.fetchPhotos();
-    const markup = createGalleryCard(response.data);
-    galleryEl.innerHTML = markup;
-  } catch (error) {
-    console.warn();
-  }
-}
+// async function defaultPage() {
+//   try {
+//     const response = await api.fetchPhotos();
+//     const markup = createGalleryCard(response.data);
+//     galleryEl.innerHTML = markup;
+//   } catch (error) {
+//     console.warn();
+//   }
+// }
 
 // CREATE EVENT "SEARCH" AND ITS FUNCTION //
 
