@@ -77,7 +77,7 @@ async function handleSearchForm(evt) {
 
     galleryEl.innerHTML.refresh();
   } catch (error) {
-    console.warn();
+    console.warn(error);
   }
 
   inputEl.value = '';
@@ -103,7 +103,7 @@ async function handleLoadMoreBtn() {
       );
     }
   } catch (error) {
-    console.warn();
+    console.warn(error);
   }
 }
 
