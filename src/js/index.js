@@ -33,79 +33,79 @@ hideLoadMoreBtn();
 
 // CREATE EVENT "SEARCH" AND ITS FUNCTION //
 
-// searchFormEl.addEventListener('submit', async evt => {
-//   await handleSearchForm(evt);
-// });
+searchFormEl.addEventListener('submit', async evt => {
+  await handleSearchForm(evt);
+});
 
-// async function handleSearchForm(evt) {
-//   api.page = 1;
-//   evt.preventDefault();
+async function handleSearchForm(evt) {
+  api.page = 1;
+  evt.preventDefault();
 
-//   let searchValue = inputEl.value.trim();
-//   api.query = searchValue;
+  let searchValue = inputEl.value.trim();
+  api.query = searchValue;
 
-//   if (!searchValue) {
-//     return;
-//   }
+  if (!searchValue) {
+    return;
+  }
 
-//   try {
-//     const response = await api.fetchQuery();
-//     showLoadMoreBtn();
-//     const { data } = response;
-//     const markup = createGalleryCard(data);
-//     galleryEl.innerHTML = markup;
+  try {
+    const response = await api.fetchQuery();
+    showLoadMoreBtn();
+    const { data } = response;
+    const markup = createGalleryCard(data);
+    galleryEl.innerHTML = markup;
 
-//     if (galleryEl.innerHTML === '') {
-//       inputEl.value = '';
-//       hideLoadMoreBtn();
-//       return Notiflix.Notify.failure(
-//         `Sorry, there are no images matching your search query. Please try again.`
-//       );
-//     }
-//     Notiflix.Notify.success(
-//       `We found ${
-//         data.totalHits
-//       } pictures for you under category "${searchValue.toUpperCase()}"`
-//     );
+    if (galleryEl.innerHTML === '') {
+      inputEl.value = '';
+      hideLoadMoreBtn();
+      return Notiflix.Notify.failure(
+        `Sorry, there are no images matching your search query. Please try again.`
+      );
+    }
+    Notiflix.Notify.success(
+      `We found ${
+        data.totalHits
+      } pictures for you under category "${searchValue.toUpperCase()}"`
+    );
 
-//     if (40 / data.hits.length > 1) {
-//       hideLoadMoreBtn();
-//       Notiflix.Notify.warning(
-//         "We're sorry, but you've reached the end of search results."
-//       );
-//     }
+    if (40 / data.hits.length > 1) {
+      hideLoadMoreBtn();
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
 
-//     galleryEl.innerHTML.refresh();
-//   } catch (error) {
-//     console.warn();
-//   }
+    galleryEl.innerHTML.refresh();
+  } catch (error) {
+    console.warn();
+  }
 
-//   inputEl.value = '';
-// }
+  inputEl.value = '';
+}
 
 // CREATE EVENT "LOAD MORE" AND ITS FUNCTION //
 
-// loadMoreBtn.addEventListener('click', async () => {
-//   await handleLoadMoreBtn();
-// });
+loadMoreBtn.addEventListener('click', async () => {
+  await handleLoadMoreBtn();
+});
 
-// async function handleLoadMoreBtn() {
-//   api.page += 1;
-//   try {
-//     const response = await api.fetchQuery();
-//     const { data } = response;
-//     galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
+async function handleLoadMoreBtn() {
+  api.page += 1;
+  try {
+    const response = await api.fetchQuery();
+    const { data } = response;
+    galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
 
-//     if (40 / data.hits.length > 1) {
-//       hideLoadMoreBtn();
-//       Notiflix.Notify.warning(
-//         "We're sorry, but you've reached the end of search results."
-//       );
-//     }
-//   } catch (error) {
-//     console.warn();
-//   }
-// }
+    if (40 / data.hits.length > 1) {
+      hideLoadMoreBtn();
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
+  } catch (error) {
+    console.warn();
+  }
+}
 
 // new SimpleLightbox('.gallery a', {
 //   captionDelay: 250,
@@ -136,49 +136,49 @@ function showLoadMoreBtn() {
 
 // CREATE EVENT "SEARCH" AND ITS FUNCTION //
 // =======================================================
-searchFormEl.addEventListener('submit', handleSearchForm);
+// searchFormEl.addEventListener('submit', handleSearchForm);
 
-function handleSearchForm(evt) {
-  api.page = 1;
-  evt.preventDefault();
+// function handleSearchForm(evt) {
+//   api.page = 1;
+//   evt.preventDefault();
 
-  let searchValue = inputEl.value.trim();
-  api.query = searchValue;
+//   let searchValue = inputEl.value.trim();
+//   api.query = searchValue;
 
-  if (!searchValue) {
-    return;
-  }
+//   if (!searchValue) {
+//     return;
+//   }
 
-  api
-    .fetchQuery()
-    .then(response => {
-      showLoadMoreBtn();
-      const { data } = response;
-      const markup = createGalleryCard(data);
-      galleryEl.innerHTML = markup;
+//   api
+//     .fetchQuery()
+//     .then(response => {
+//       showLoadMoreBtn();
+//       const { data } = response;
+//       const markup = createGalleryCard(data);
+//       galleryEl.innerHTML = markup;
 
-      if (galleryEl.innerHTML === '') {
-        return Notiflix.Notify.failure(
-          `Sorry, there are no images matching your search query. Please try again.`
-        );
-      }
-      Notiflix.Notify.success(
-        `We found ${
-          data.totalHits
-        } pictures for you under category "${searchValue.toUpperCase()}"`
-      );
+//       if (galleryEl.innerHTML === '') {
+//         return Notiflix.Notify.failure(
+//           `Sorry, there are no images matching your search query. Please try again.`
+//         );
+//       }
+//       Notiflix.Notify.success(
+//         `We found ${
+//           data.totalHits
+//         } pictures for you under category "${searchValue.toUpperCase()}"`
+//       );
 
-      if (40 / data.hits.length > 1) {
-        hideLoadMoreBtn();
-        Notiflix.Notify.warning(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
-    })
-    .catch(console.warn());
+//       if (40 / data.hits.length > 1) {
+//         hideLoadMoreBtn();
+//         Notiflix.Notify.warning(
+//           "We're sorry, but you've reached the end of search results."
+//         );
+//       }
+//     })
+//     .catch(console.warn());
 
-  inputEl.value = '';
-}
+//   inputEl.value = '';
+// }
 // =================================================================
 // CREATE EVENT "LOAD MORE" AND ITS FUNCTION //
 // =================================================================
