@@ -1,5 +1,5 @@
 // without SimpleLightBox
-export function createGalleryCard({ hits } = images) {
+export function createGalleryCard({ hits }) {
   return hits
     .map(
       ({
