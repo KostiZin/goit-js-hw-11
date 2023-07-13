@@ -9,6 +9,8 @@ const inputEl = searchFormEl.firstElementChild;
 
 const api = new PixabayAPI();
 
+hideLoadMoreBtn();
+
 // CREATE MARKUP FOR THE FIRST DEFAULT PAGE //
 api
   .fetchPhotos()
@@ -39,14 +41,14 @@ function handleSearchForm(evt) {
     .fetchQuery()
     .then(data => {
       console.log(data);
-      // showLoadMoreBtn();
+      showLoadMoreBtn();
       // const { data } = response;
       const markup = createGalleryCard(data);
       galleryEl.innerHTML = markup;
 
       if (galleryEl.innerHTML === '') {
         inputEl.value = '';
-        //   hideLoadMoreBtn();
+        hideLoadMoreBtn();
         return Notiflix.Notify.failure(
           `Sorry, there are no images matching your search query. Please try again.`
         );
@@ -71,4 +73,42 @@ function handleSearchForm(evt) {
     });
 
   inputEl.value = '';
+}
+
+// CREATE EVENT "LOAD MORE" AND ITS FUNCTION //
+
+loadMoreBtn.addEventListener('click', handleLoadMoreBtn);
+
+function handleLoadMoreBtn() {
+  api.page += 1;
+  api
+    .fetchQuery()
+    .then(data => {
+      // const { data } = response;
+      galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
+
+      if (40 / data.hits.length > 1) {
+        hideLoadMoreBtn();
+        Notiflix.Notify.warning(
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
+    })
+    .catch(error => {
+      console.warn(error);
+    });
+}
+
+// new SimpleLightbox('.gallery a', {
+//   captionDelay: 250,
+// });
+
+// ADDITIONAL FUNCTIONS //
+
+function hideLoadMoreBtn() {
+  loadMoreBtn.style.display = 'none';
+}
+
+function showLoadMoreBtn() {
+  loadMoreBtn.style.display = 'block';
 }
