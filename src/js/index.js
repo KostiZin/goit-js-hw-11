@@ -13,13 +13,17 @@ hideLoadMoreBtn();
 
 // CREATE MARKUP FOR THE FIRST DEFAULT PAGE (my imagination) //
 
-api
-  .fetchPhotos()
-  .then(data => {
+defaultPage();
+
+async function defaultPage() {
+  try {
+    const data = await api.fetchPhotos();
     const markup = createGalleryCard(data);
     galleryEl.innerHTML = markup;
-  })
-  .catch(error => console.warn(error));
+  } catch (error) {
+    console.warn(error);
+  }
+}
 
 // CREATE EVENT "SEARCH" AND ITS FUNCTION //
 
