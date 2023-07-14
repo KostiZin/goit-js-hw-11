@@ -2,6 +2,9 @@ import Notiflix from 'notiflix';
 import { PixabayAPI } from './PixabayAPI';
 import { createGalleryCard } from './createGalleryCard';
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const galleryEl = document.querySelector('.js-gallery');
 const searchFormEl = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.js-load-more');
@@ -10,6 +13,10 @@ const inputEl = searchFormEl.firstElementChild;
 const api = new PixabayAPI();
 
 hideLoadMoreBtn();
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+});
 
 // CREATE MARKUP FOR THE FIRST DEFAULT PAGE (my imagination) //
 
@@ -20,6 +27,7 @@ async function defaultPage() {
     const data = await api.fetchPhotos();
     const markup = createGalleryCard(data);
     galleryEl.innerHTML = markup;
+    lightbox.refresh();
   } catch (error) {
     console.warn(error);
   }
@@ -46,6 +54,7 @@ async function handleSearchForm(evt) {
     showLoadMoreBtn();
     const markup = createGalleryCard(data);
     galleryEl.innerHTML = markup;
+    lightbox.refresh();
 
     if (galleryEl.innerHTML === '') {
       inputEl.value = '';
@@ -85,6 +94,7 @@ async function handleLoadMoreBtn() {
   try {
     const data = await api.fetchQuery();
     galleryEl.insertAdjacentHTML('beforeend', createGalleryCard(data));
+    lightbox.refresh();
 
     if (40 / data.hits.length > 1) {
       hideLoadMoreBtn();
